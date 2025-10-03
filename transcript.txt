@@ -1,0 +1,104 @@
+1. Dynamic
+[anping@ieng6-201]:adder:529$ make test/negate1.s
+cargo run -- test/negate1.snek test/negate1.s
+    Finished dev [unoptimized + debuginfo] target(s) in 0.18s
+     Running `target/debug/adder test/negate1.snek test/negate1.s`
+-4
+
+---
+2. Dynamic
+[anping@ieng6-201]:adder:530$ make test/add.s
+cargo run -- test/add.snek test/add.s
+    Finished dev [unoptimized + debuginfo] target(s) in 0.12s
+     Running `target/debug/adder test/add.snek test/add.s`
+72
+
+---
+3. Dynamic
+[anping@ieng6-201]:adder:532$ make test/test1.s
+cargo run -- test/test1.snek test/test1.s
+    Finished dev [unoptimized + debuginfo] target(s) in 0.20s
+     Running `target/debug/adder test/test1.snek test/test1.s`
+-100
+
+---
+4. Dynamic
+[anping@ieng6-201]:adder:533$ make test/negate2.s
+cargo run -- test/negate2.snek test/negate2.s
+    Finished dev [unoptimized + debuginfo] target(s) in 0.20s
+     Running `target/debug/adder test/negate2.snek test/negate2.s`
+4
+
+---
+5. Dynamic
+[anping@ieng6-201]:adder:534$ make test/test2.s
+cargo run -- test/test2.snek test/test2.s
+    Finished dev [unoptimized + debuginfo] target(s) in 0.12s
+     Running `target/debug/adder test/test2.snek test/test2.s`
+-3
+
+--------------------------------------------------------------
+1. AOT
+[anping@ieng6-201]:adder:538$ make test/negate1.s
+cargo run -- test/negate1.snek test/negate1.s
+   Compiling adder v0.1.0 (/home/linux/ieng6/CSE131_FA25_A00/anping/adder)
+    Finished dev [unoptimized + debuginfo] target(s) in 1.18s
+     Running `target/debug/adder test/negate1.snek test/negate1.s`
+[anping@ieng6-201]:adder:539$ make test/negate1.run
+nasm -f elf64 test/negate1.s -o runtime/our_code.o
+ar rcs runtime/libour_code.a runtime/our_code.o
+rustc -L runtime/ runtime/start.rs -o test/negate1.run
+[anping@ieng6-201]:adder:540$ ./test/negate1.run 
+-4
+
+---
+2. AOT
+[anping@ieng6-201]:adder:541$ make test/add.s
+cargo run -- test/add.snek test/add.s
+    Finished dev [unoptimized + debuginfo] target(s) in 0.19s
+     Running `target/debug/adder test/add.snek test/add.s`
+[anping@ieng6-201]:adder:542$ make test/add.run
+nasm -f elf64 test/add.s -o runtime/our_code.o
+ar rcs runtime/libour_code.a runtime/our_code.o
+rustc -L runtime/ runtime/start.rs -o test/add.run
+[anping@ieng6-201]:adder:543$ ./test/add.run 
+72
+
+---
+3. AOT
+[anping@ieng6-201]:adder:544$ make test/test1.s
+cargo run -- test/test1.snek test/test1.s
+    Finished dev [unoptimized + debuginfo] target(s) in 0.14s
+     Running `target/debug/adder test/test1.snek test/test1.s`
+[anping@ieng6-201]:adder:545$ make test/test1.run
+nasm -f elf64 test/test1.s -o runtime/our_code.o
+ar rcs runtime/libour_code.a runtime/our_code.o
+rustc -L runtime/ runtime/start.rs -o test/test1.run
+[anping@ieng6-201]:adder:546$ ./test/test1.run 
+-100
+
+---
+4. AOT
+[anping@ieng6-201]:adder:547$ make test/negate2.s
+cargo run -- test/negate2.snek test/negate2.s
+    Finished dev [unoptimized + debuginfo] target(s) in 0.16s
+     Running `target/debug/adder test/negate2.snek test/negate2.s`
+[anping@ieng6-201]:adder:548$ make test/negate2.run
+nasm -f elf64 test/negate2.s -o runtime/our_code.o
+ar rcs runtime/libour_code.a runtime/our_code.o
+rustc -L runtime/ runtime/start.rs -o test/negate2.run
+[anping@ieng6-201]:adder:549$ ./test/negate2.run 
+4
+
+---
+5. AOT
+[anping@ieng6-201]:adder:550$ make test/test2.s
+cargo run -- test/test2.snek test/test2.s
+    Finished dev [unoptimized + debuginfo] target(s) in 0.13s
+     Running `target/debug/adder test/test2.snek test/test2.s`
+[anping@ieng6-201]:adder:551$ make test/test2.run
+nasm -f elf64 test/test2.s -o runtime/our_code.o
+ar rcs runtime/libour_code.a runtime/our_code.o
+rustc -L runtime/ runtime/start.rs -o test/test2.run
+[anping@ieng6-201]:adder:552$ ./test/test2.run 
+-3
